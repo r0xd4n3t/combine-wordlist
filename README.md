@@ -24,7 +24,7 @@ This Python code reads two input files, processes their contents to extract uniq
 
 **Free up some space by merging dictionaries!**
 
-## 🕹️ Usage:
+## 🕹️ Usage
 
 The code can be executed in the command line as follows:
 
@@ -37,7 +37,7 @@ Example:
 ```python combine.py rockyou1.txt rockyou2.txt wer0xyou.txt```
 
 
-## 📝 Prerequisites:
+## 📝 Prerequisites
 
 -   Python 3.x
 -   tqdm (Python library for adding progress bars to loops) It can be installed via pip as follows:
