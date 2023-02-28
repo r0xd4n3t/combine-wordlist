@@ -14,7 +14,7 @@ def detect_encoding(filepath):
 def process_file(filepath):
     # detect the encoding of the file
     encoding = detect_encoding(filepath)
-    words = {}
+    words = set()
     with open(filepath, "r", encoding=encoding, errors='ignore') as file:
         for line in tqdm(file, desc="Processing file"):
             # remove any punctuation from the file
@@ -22,7 +22,7 @@ def process_file(filepath):
             # split the contents into a list of words
             words_in_line = re.findall(r"[a-zA-Z0-9]+",line)
             for word in words_in_line:
-                words[word] = None
+                words.add(word)
     return words
 
 def main():
