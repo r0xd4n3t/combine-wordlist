@@ -5,6 +5,7 @@ import sys
 import chardet
 import concurrent.futures
 from tqdm import tqdm
+from multiprocessing import Pool
 
 def detect_encoding(filepath):
     with open(filepath, 'rb') as f:
@@ -38,13 +39,12 @@ def main():
     outputfile = sys.argv[3]
 
     with tqdm(total=3, desc="Processing...") as pbar:
-        with concurrent.futures.ThreadPoolExecutor() as executor:
-            future1 = executor.submit(process_file, filepath1)
-            future2 = executor.submit(process_file, filepath2)
-        words = {**future1.result(), **future2.result()}
-        pbar.update(1)
-        # sort the words alphabetically
-        words = sorted(words.keys())
+        with Pool() as pool:
+            # process the input files in parallel
+            words1 = pool.apply(process_file, args=(filepath1,))
+            words2 = pool.apply(process_file, args=(filepath2,))
+        # combine the unique words from both files
+        words = sorted(words1.union(words2))
         pbar.update(1)
     # write the processed words to a new file
     with open(outputfile, "w", encoding='utf-8') as file:
